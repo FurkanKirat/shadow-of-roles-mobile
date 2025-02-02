@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using enums;
+using Managers;
 using Models.Roles.Enums;
 using Models.Roles.Interfaces;
 
@@ -30,7 +31,7 @@ namespace Models.Roles.NeutralRoles.Killing
         public override bool ExecuteAbility() {
             if(attack > choosenPlayer.Defence){
                 choosenPlayer.SetAlive(false);
-                choosenPlayer.SetCauseOfDeath(LanguageManager.GetText("CauseOfDeath","assassin"));
+                choosenPlayer.SetCauseOfDeath(CauseOfDeath.Assassin);
                 SendAbilityMessage(LanguageManager.GetText("Assassin","killMessage"), roleOwner);
                 SendAbilityAnnouncement(LanguageManager.GetText("Assassin","slainMessage")
                     .Replace("{playerName}",choosenPlayer.Name));

@@ -4,8 +4,12 @@ using enums;
 using Managers;
 using Models;
 using Models.Roles;
+using Models.Roles.CorrupterRoles.Support;
 using Models.Roles.Enums;
 using Models.Roles.Interfaces;
+using Models.Roles.NeutralRoles;
+using Models.Roles.NeutralRoles.Chaos;
+using Models.Roles.NeutralRoles.Good;
 
 namespace Services
 {
@@ -90,8 +94,8 @@ namespace Services
                 {
                     if (alivePlayer.Number == votingService.MaxVoted.Number)
                     {
-                        alivePlayer.IsAlive = false;
-                        alivePlayer.CauseOfDeath = LanguageManager.GetText("CauseOfDeath", "hanging");
+                        alivePlayer.SetAlive(false);
+                        alivePlayer.SetCauseOfDeath(CauseOfDeath.Hanging); 
                         break;
                     }
                 }
@@ -160,7 +164,7 @@ namespace Services
                 {
                     alivePlayers.Add(player);
                 }
-                else if (player.Role is LastJoke lastJoker && !lastJoker.IsDidUsedAbility && timeService.GetTime() == Time.NIGHT)
+                else if (player.Role is LastJoke lastJoker && !lastJoker.isDidUsedAbility() && timeService.GetTime() == Time.NIGHT)
                 {
                     alivePlayers.Add(player);
                 }
@@ -205,7 +209,7 @@ namespace Services
                 var player1 = alivePlayers[0];
                 var player2 = alivePlayers[1];
 
-                var neutralPlayer = alivePlayers.Find(p => p.Role is NeutralRole && ((NeutralRole)p.Role).CanWinWithOtherTeams);
+                var neutralPlayer = alivePlayers.Find(p => p.Role is NeutralRole && ((NeutralRole)p.Role).CanWinWithOtherTeams());
 
                 if (neutralPlayer != null)
                 {
@@ -268,14 +272,14 @@ namespace Services
                     case ChillGuy _:
                         chillGuyExist = true;
                         break;
-                    case Clown _ when !player.IsAlive && player.CauseOfDeath != LanguageManager.GetText("CauseOfDeath", "hanging"):
-                        player.HasWon = true;
+                    case Clown _ when !player.IsAlive && player.CauseOfDeath != CauseOfDeath.Hanging:
+                        player.SetHasWon(true);
                         break;
-                    case Lorekeeper lorekeeper:
+                    case LoreKeeper lorekeeper:
                         int winCount = playerCount > 6 ? 3 : 2;
-                        if (lorekeeper.TrueGuessCount >= winCount)
+                        if (lorekeeper.getTrueGuessCount() >= winCount)
                         {
-                            player.HasWon = true;
+                            player.SetHasWon(true);
                         }
                         break;
                 }

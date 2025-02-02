@@ -37,7 +37,7 @@
 
             yield return new WaitForSeconds(0.5f);
 
-            SceneManager.LoadSceneWithTransition(sceneName);
+            SceneManager.LoadScene(sceneName);
 
             yield return new WaitForSeconds(0.5f);
 

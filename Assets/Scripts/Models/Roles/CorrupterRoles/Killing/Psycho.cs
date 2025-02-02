@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using enums;
+using Managers;
 using Models.Roles.Enums;
 using Models.Roles.Interfaces;
 
@@ -13,7 +14,7 @@ namespace Models.Roles.CorrupterRoles.Killing
 
             if(attack > choosenPlayer.Defence){
                 this.choosenPlayer.SetAlive(false);
-                this.choosenPlayer.SetCauseOfDeath(LanguageManager.GetText("CauseOfDeath","psycho"));
+                this.choosenPlayer.SetCauseOfDeath(CauseOfDeath.Psycho);
                 SendAbilityMessage(LanguageManager.GetText("Psycho","killMessage"), roleOwner);
                 SendAbilityAnnouncement( LanguageManager.GetText("Psycho","slainMessage")
                     .Replace("{playerName}",this.choosenPlayer.Name));

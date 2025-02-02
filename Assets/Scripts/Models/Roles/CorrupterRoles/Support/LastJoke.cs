@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using enums;
+using Managers;
 using Models.Roles.Enums;
 using Models.Roles.Interfaces;
 
@@ -23,7 +24,7 @@ namespace Models.Roles.CorrupterRoles.Support
                     return false;
                 }
                 choosenPlayer.SetAlive(false);
-                choosenPlayer.SetCauseOfDeath(LanguageManager.GetText("CauseOfDeath","lastJoke"));
+                choosenPlayer.SetCauseOfDeath(CauseOfDeath.LastJoke);
                 SendAbilityAnnouncement(LanguageManager.GetText("LastJoke","slainMessage")
                     .Replace("{playerName}", choosenPlayer.Name));
 

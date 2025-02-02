@@ -1,4 +1,5 @@
 ﻿using System;
+using enums;
 using Models.Roles;
 
 namespace Models
@@ -12,7 +13,7 @@ namespace Models
         public double Attack { get; private set; }
         public double Defence { get; private set; }
         public bool HasWon { get; private set; }
-        public string CauseOfDeath { get; private set; }
+        public CauseOfDeath CauseOfDeath { get; private set; }
         public bool IsImmune { get; private set; }
 
         public Player(int number, string name, Role role)
@@ -25,7 +26,7 @@ namespace Models
             Defence = role.GetDefence();
             role.SetRoleOwner(this);
             HasWon = false;
-            CauseOfDeath = null;
+            CauseOfDeath = CauseOfDeath.Alive;
         }
 
         public override string ToString()
@@ -74,7 +75,7 @@ namespace Models
             HasWon = hasWon;
         }
 
-        public void SetCauseOfDeath(string causeOfDeath)
+        public void SetCauseOfDeath(CauseOfDeath causeOfDeath)
         {
             CauseOfDeath = causeOfDeath;
         }
